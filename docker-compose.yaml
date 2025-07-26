@@ -1,0 +1,11 @@
+services:
+  aosp-build-env:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: aosp-build-env
+    volumes:
+      - /vol1/1000/Projects/aosp:/aosp
+    working_dir: /aosp
+    tty: true
+    restart: unless-stopped
