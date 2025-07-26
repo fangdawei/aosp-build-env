@@ -3,9 +3,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: aosp-build-env
     container_name: aosp-build-env
+    environment:
+      - REPO_URL=https://mirrors.tuna.tsinghua.edu.cn/git/git-repo
     volumes:
       - /vol1/1000/Projects/aosp:/aosp
     working_dir: /aosp
     tty: true
+    network_mode: bridge
     restart: unless-stopped
