@@ -31,6 +31,9 @@ WORKDIR /home/${USER}
 
 RUN sudo apt-get install -y zsh curl git
 
+RUN git config --global user.name "fangdawei" && \
+    git config --global user.email "fangdawei.www@gmail.com"
+
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
 RUN git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
@@ -42,6 +45,3 @@ zip curl zlib1g-dev libc6-dev-i386 x11proto-core-dev libx11-dev \
 lib32z1-dev libgl1-mesa-dev libxml2-utils xsltproc unzip fontconfig
 
 RUN sudo apt-get install -y repo
-
-RUN git config --global user.name "fangdawei" && \
-    git config --global user.email "fangdawei.www@gmail.com"
