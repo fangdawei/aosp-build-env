@@ -1,8 +1,5 @@
 FROM ubuntu:22.04
 
-ENV DEBIAN_FRONTEND=noninteractive
-ENV TZ=Asia/Shanghai
-
 RUN apt-get update && \
     apt-get install -y ca-certificates
 
@@ -14,13 +11,12 @@ RUN echo "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted
     echo "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-security main restricted universe multiverse" >> /etc/apt/sources.list
 
 RUN apt-get update && \
-    apt-get install -y sudo
+    apt-get install -y sudo zsh curl git iputils-ping
 
 ENV USER="david"
 ENV PASSWD="david"
 
-RUN useradd -m ${USER} && \
-    echo "${USER}:${PASSWD}" | chpasswd
+RUN useradd -m ${USER} && echo "${USER}:${PASSWD}" | chpasswd
 
 RUN usermod -aG sudo ${USER}
 
@@ -29,10 +25,11 @@ RUN echo "${USER} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 USER ${USER}
 WORKDIR /home/${USER}
 
-RUN sudo apt-get install -y zsh curl git
+ENV GIT_USER="fangdawei"
+ENV GIT_EMAIL="fangdawei.www@gmail.com"
 
-RUN git config --global user.name "fangdawei" && \
-    git config --global user.email "fangdawei.www@gmail.com"
+RUN git config --global user.name ${GIT_USER} && \
+    git config --global user.email ${GIT_EMAIL}
 
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
